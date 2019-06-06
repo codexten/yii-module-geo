@@ -3,10 +3,8 @@
   "type": "library",
   "description": "Zone module for yii 2.0 or higher",
   "require": {
-    "codexten/yii-web": "^2.0",
-    "symfony/intl": "*",
-    "kartik-v/yii2-widget-select2": "@dev",
-    "kartik-v/yii2-widget-switchinput": "*"
+    "codexten/yii-module-country": "^2.0.0",
+    "la-haute-societe/yii2-save-relations-behavior": "*"
   },
   "autoload": {
     "psr-4": {
@@ -17,8 +15,11 @@
     "branch-alias": {
       "dev-master": "2.0.x-dev"
     },
-    "sconfig-plugin": {
-      "moduleCountry": "config/moduleCountry.php",
+    "config-plugin": {
+      "moduleGeo": [
+        "$moduleCountry",
+        "config/moduleGeo.php"
+      ],
       "migrationNamespaces": "config/migrationNamespaces.php"
     }
   }
