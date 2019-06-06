@@ -1,2 +1,12 @@
 migration:
-  add_access_token_column_to_user_table:
+  create_province_table:
+    fields: |
+      country_id:integer:notNull:foreignKey(country),
+      code:string(50),
+      name:string(255),
+      abbreviation:string(255)
+model:
+  province:
+crud:
+  province:
+    modelClass: codexten\yii\modules\geo\models\Province
