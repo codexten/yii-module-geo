@@ -1,0 +1,2 @@
+migration:
+  add_access_token_column_to_user_table:
