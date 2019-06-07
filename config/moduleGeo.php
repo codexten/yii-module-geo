@@ -23,7 +23,7 @@ return ArrayHelper::merge(
             'view' => [
                 'theme' => [
                     'pathMap' => [
-                        '@moduleCountry' => [
+                        '@moduleCountry/views' => [
                             '@moduleGeo/modules/country/views',
                         ],
                     ],
