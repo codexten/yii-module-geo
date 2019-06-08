@@ -23,8 +23,8 @@ class Country extends \codexten\yii\modules\country\models\Country
         return $behaviors;
     }
 
-    public function get()
+    public function getProvinces()
     {
-        
+
     }
 }

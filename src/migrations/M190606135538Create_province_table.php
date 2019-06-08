@@ -20,6 +20,7 @@ class M190606135538Create_province_table extends Migration
         $this->createTable('{{%province}}', [
             'id' => $this->primaryKey(),
             'country_id' => $this->integer()->notNull(),
+            'type' => $this->string(50),
             'code' => $this->string(50),
             'name' => $this->string(255),
             'abbreviation' => $this->string(255)

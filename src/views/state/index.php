@@ -1,28 +1,15 @@
 <?php
 
-use codexten\yii\modules\geo\models\Zone;
+use codexten\yii\modules\country\helpers\CountryHelper;
 use codexten\yii\web\widgets\IndexPage;
-use yii\grid\GridView;
+use kartik\grid\EnumColumn;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel */
 
-$this->title = Yii::t('codexten:module:core', 'Zones');
-
-$createButtonDropdownItems = [];
-
-$createButtonDropdownItems[] = [
-    'label' => 'Create District',
-    'url' => ['create', 'type' => Zone::TYPE_DISTRICT],
-];
-
-//foreach (Zone::types() as $type => $label) {
-//    $createButtonDropdownItems[] = [
-//        'label' => Yii::t('codexten:module:core', 'Zone consisting of {label}', ['label' => $label]),
-//        'url' => ['create', 'type' => $type],
-//    ];
-//}
+$this->title = Yii::t('app', 'States');
 ?>
 
 <?php $page = IndexPage::begin([
@@ -31,7 +18,7 @@ $createButtonDropdownItems[] = [
 
 <?php $page->beginContent('main-actions') ?>
 
-<?= $page->renderSuccessButtonDropdown(Yii::t('codexten:module:core', 'Create'), $createButtonDropdownItems) ?>
+<?= $page->renderButton('create', 'create', ['class' => ['btn-success']]) ?>
 
 <?php $page->endContent() ?>
 
@@ -41,10 +28,14 @@ $createButtonDropdownItems[] = [
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
+        [
+            'class' => EnumColumn::class,
+            'attribute' => 'country_id',
+            'enum' => CountryHelper::getNamesById(),
+        ],
         'code',
         'name',
-        'type',
-        'scope',
+        'abbreviation',
         [
             'class' => 'yii\grid\ActionColumn',
             'options' => ['style' => 'width: 5%'],

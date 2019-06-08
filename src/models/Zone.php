@@ -2,8 +2,8 @@
 
 namespace codexten\yii\modules\geo\models;
 
-use codexten\yii\modules\geo\models\query\ZoneQuery;
 use codexten\yii\db\ActiveRecord;
+use codexten\yii\modules\geo\models\query\ZoneQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsTrait;
 use Yii;
@@ -37,6 +37,7 @@ class Zone extends ActiveRecord
     const TYPE_COUNTRY = 'country';
     const TYPE_PROVINCE = 'province';
     const TYPE_ZONE = 'zone';
+    const TYPE_DISTRICT = 'district';
 
     // scopes
     const SCOPE_ALL = 'all';

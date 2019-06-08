@@ -5,6 +5,11 @@ migration:
       code:string(50),
       name:string(255),
       abbreviation:string(255)
+  create_zone_group_table:
+    fields: |
+      zone_id:integer:notNull:foreignKey(zone),
+      code:string(50),
+      zone_id:integer:notNull:foreignKey(zone)
 model:
   province:
 crud:

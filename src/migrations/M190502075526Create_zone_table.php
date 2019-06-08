@@ -19,8 +19,6 @@ class M190502075526Create_zone_table extends Migration
             'code' => $this->string(50),
             'name' => $this->string(255),
             'type' => $this->string(50),
-            'scope' => $this->string(255)
-            ,
         ]);
     }
 
