@@ -7,7 +7,7 @@ namespace codexten\yii\modules\geo\models;
  *
  * @package codexten\yii\modules\geo\models
  */
-class Zone extends BaseZone
+class District extends BaseZone
 {
 
 }
