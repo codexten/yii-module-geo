@@ -3,22 +3,19 @@
 namespace codexten\yii\modules\geo\models;
 
 use codexten\yii\db\ActiveRecord;
-use codexten\yii\modules\geo\models\query\ProvinceQuery;
-use codexten\yii\modules\geo\modules\country\models\Country;
+use codexten\yii\modules\geo\models\query\ZoneGroupQuery;
 use Yii;
 use yii\db\ActiveQuery;
 
 /**
- * This is the model class for table "{{%province}}".
+ * This is the model class for table "{{%zone_group}}".
  *
  * Database fields:
  *
  * @property int $id
- * @property int $country_id
+ * @property string $zone_code
  * @property string $type
- * @property string $code
- * @property string $name
- * @property string $abbreviation
+ * @property string $group_code
  *
  * Defined properties:
  *
@@ -26,16 +23,18 @@ use yii\db\ActiveQuery;
  *
  * Defined relations:
  *
- * @property Country $country
+ * @property Zone $zoneCode
  */
-abstract class BaseProvince extends ActiveRecord
+class ZoneGroup extends ActiveRecord
 {
+    const TYPE_STATE = 'state';
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%province}}';
+        return '{{%zone_group}}';
     }
 
     /**
@@ -44,17 +43,15 @@ abstract class BaseProvince extends ActiveRecord
     public function rules()
     {
         return [
-            [['country_id'], 'required'],
-            [['country_id'], 'integer'],
-            [['code'], 'string', 'max' => 50],
-            [['name', 'abbreviation'], 'string', 'max' => 255],
+            [['zone_code'], 'required'],
+            [['zone_code', 'type', 'group_code'], 'string', 'max' => 50],
             [
-                ['country_id'],
+                ['zone_code'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Country::class,
-                'targetAttribute' => ['country_id' => 'id'],
-            ]
+                'targetClass' => Zone::class,
+                'targetAttribute' => ['zone_code' => 'code'],
+            ],
         ];
     }
 
@@ -65,19 +62,18 @@ abstract class BaseProvince extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'country_id' => Yii::t('app', 'Country'),
-            'code' => Yii::t('app', 'Code'),
-            'name' => Yii::t('app', 'Name'),
-            'abbreviation' => Yii::t('app', 'Abbreviation'),
+            'zone_code' => Yii::t('app', 'Zone Code'),
+            'type' => Yii::t('app', 'Type'),
+            'group_code' => Yii::t('app', 'Group Code'),
         ];
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getZoneCode()
     {
-        return $this->hasOne(Country::class, ['id' => 'country_id']);
+        return $this->hasOne(Zone::className(), ['code' => 'zone_code']);
     }
 
 
@@ -117,6 +113,22 @@ abstract class BaseProvince extends ActiveRecord
         return parent::canView();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getMeta()
+    {
+        $meta = parent::getMeta();
+
+        //if ($this->canView()) {
+        //    $meta['viewUrl'] = Url::to(['@partner/view', 'id' => $this->id]);
+        //}
+        //if ($this->canUpdate()) {
+        //    $meta['updateUrl'] = Url::to(['@partner/update', 'id' => $this->id]);
+        //}
+
+        return $meta;
+    }
 
     /**
      * {@inheritdoc}
@@ -138,10 +150,22 @@ abstract class BaseProvince extends ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return ProvinceQuery the active query used by this AR class.
+     * @return ZoneGroupQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new ProvinceQuery(get_called_class());
+        return new ZoneGroupQuery(get_called_class());
     }
+
+    ///**
+    //* statuses
+    //* @return array
+    //*/
+    //public static function statuses()
+    //{
+    //    return [
+    //        self::STATUS_ACTIVE => Yii::t('app', 'Active'),
+    //        self::STATUS_INACTIVE => Yii::t('app', 'Inactive'),
+    //    ];
+    //}
 }

@@ -4,7 +4,10 @@
 namespace codexten\yii\modules\geo\controllers;
 
 
-class DistrictController
+use codexten\yii\modules\geo\models\District;
+
+class DistrictController extends BaseZoneController
 {
+    public $modelClass = District::class;
 
 }

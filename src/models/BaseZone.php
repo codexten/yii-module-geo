@@ -37,7 +37,6 @@ abstract class BaseZone extends ActiveRecord
     const TYPE_COUNTRY = 'country';
     const TYPE_PROVINCE = 'province';
     const TYPE_ZONE = 'zone';
-    const TYPE_DISTRICT = 'district';
 
     // scopes
     const SCOPE_ALL = 'all';

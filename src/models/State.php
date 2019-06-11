@@ -11,10 +11,13 @@ class State extends BaseProvince
 {
     const TYPE_DISTRICT = 'district';
 
-    public $type = self::TYPE_DISTRICT;
+    /**
+     * {@inheritDoc}
+     */
+    public function beforeSave($insert)
+    {
+        $this->type = self::TYPE_DISTRICT;
 
-//    public function getDistricts()
-//    {
-//        return $this->
-//    }
+        return parent::beforeSave($insert);
+    }
 }

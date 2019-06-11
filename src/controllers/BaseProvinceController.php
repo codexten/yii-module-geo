@@ -2,7 +2,6 @@
 
 namespace codexten\yii\modules\geo\controllers;
 
-use codexten\yii\modules\geo\models\Province;
 use codexten\yii\web\CrudController;
 
 /**
@@ -10,8 +9,6 @@ use codexten\yii\web\CrudController;
  */
 abstract class BaseProvinceController extends CrudController
 {
-    public $modelClass = Province::class;
-
     /**
      * {@inheritdoc}
      */

@@ -5,9 +5,12 @@ namespace codexten\yii\modules\geo\controllers;
 
 
 use codexten\yii\modules\geo\models\search\ProvinceSearch;
+use codexten\yii\modules\geo\models\State;
 
-class StateController extends ProvinceController
+class StateController extends BaseProvinceController
 {
+    public $modelClass = State::class;
+
     /**
      * {@inheritDoc}
      */
