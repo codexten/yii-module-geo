@@ -10,6 +10,7 @@ use yii\db\ActiveQuery;
  * Class Zone
  *
  * @property State $state
+ * @property mixed $fullName
  * @property ZoneGroup $zoneGroup
  *
  * @package codexten\yii\modules\geo\models
@@ -60,6 +61,11 @@ class District extends BaseZone
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
+    }
+
+    public function getFullName()
+    {
+        return implode(', ', [$this->name, $this->state->name, $this->state->country->name]);
     }
 
     /**

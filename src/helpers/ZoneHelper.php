@@ -4,6 +4,8 @@ namespace codexten\yii\modules\geo\helpers;
 
 class ZoneHelper
 {
+    const MODEL_CLASS = \codexten\yii\modules\geo\models\Zone::class;
+
     /**
      * @return array
      * @deprecated
@@ -24,13 +26,16 @@ class ZoneHelper
     }
 
     /**
+     * @param null $type
+     *
      * @return array|\codexten\yii\modules\geo\models\Zone[]
      */
-    public static function getZones($scope = null)
+    public static function getZones($type = null)
     {
-        $query = \codexten\yii\modules\geo\models\Zone::find();
-        if ($scope) {
-            $query->andWhere(['scope' => $scope]);
+        $modelClass = static::MODEL_CLASS;
+        $query = $modelClass::find();
+        if ($type) {
+            $query->andWhere(['type' => $type]);
         }
 
         return $query->all();
