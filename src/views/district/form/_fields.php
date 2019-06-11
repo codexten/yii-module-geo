@@ -8,9 +8,12 @@ use yii\widgets\ActiveForm;
 /* @var $this View */
 /* @var $model District */
 /* @var $form ActiveForm */
+
+$zoneGroup = $model->zoneGroup ?: new ZoneGroup(['type' => ZoneGroup::TYPE_STATE]);
 ?>
 
 <?= $this->render('@moduleGeo/views/zone/form/_base', compact(['model', 'form'])) ?>
 
-<?= $form->field($model->zoneGroup, 'type')->textInput(['value' => ZoneGroup::TYPE_STATE]) ?>
+<?= $form->field($zoneGroup, 'type')->hiddenInput() ?>
+
 
