@@ -12,10 +12,16 @@ use yii\db\ActiveQuery;
  */
 class ZoneQuery extends ActiveQuery
 {
-    /*public function active()
+    public $type = null;
+
+    public function prepare($builder)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        if ($this->type !== null) {
+            $this->andWhere(['type' => $this->type]);
+        }
+
+        return parent::prepare($builder);
+    }
 
     /**
      * {@inheritdoc}

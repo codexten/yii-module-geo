@@ -28,8 +28,7 @@ $this->title = Yii::t('codexten:module:core', 'Districts');
     'columns' => [
         'code',
         'name',
-        'type',
-        'scope',
+        'state.name',
         [
             'class' => 'yii\grid\ActionColumn',
             'options' => ['style' => 'width: 5%'],

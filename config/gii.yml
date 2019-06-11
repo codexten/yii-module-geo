@@ -7,7 +7,7 @@ migration:
       abbreviation:string(255)
   create_zone_group_table:
     fields: |
-      zone_code:string(50):notNull:foreignKey(zone code),
+      zone_id:integer:notNull:foreignKey(zone),
       type:string(50),
       group_code:string(50)
 model:

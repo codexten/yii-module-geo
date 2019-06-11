@@ -4,8 +4,6 @@ namespace codexten\yii\modules\geo\models;
 
 use codexten\yii\db\ActiveRecord;
 use codexten\yii\modules\geo\models\query\ZoneQuery;
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsTrait;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -18,7 +16,6 @@ use yii\db\ActiveQuery;
  * @property string $code
  * @property string $name
  * @property string $type
- * @property string $scope
  *
  * Defined properties:
  *
@@ -38,12 +35,17 @@ abstract class BaseZone extends ActiveRecord
     const TYPE_PROVINCE = 'province';
     const TYPE_ZONE = 'zone';
 
-    // scopes
-    const SCOPE_ALL = 'all';
-    const SCOPE_SHIPPING = 'shipping';
-    const SCOPE_TAX = 'tax';
+    const TYPE = null;
 
-    use SaveRelationsTrait;
+    /**
+     * {@inheritDoc}
+     */
+    public function init()
+    {
+        $this->type = static::TYPE;
+        parent::init();
+    }
+
 
     /**
      * {@inheritdoc}
@@ -59,7 +61,7 @@ abstract class BaseZone extends ActiveRecord
      */
     public static function find()
     {
-        return new ZoneQuery(get_called_class());
+        return new ZoneQuery(get_called_class(), ['type' => static::TYPE]);
     }
 
     public static function types()
@@ -71,31 +73,6 @@ abstract class BaseZone extends ActiveRecord
         ];
     }
 
-    public static function scopes()
-    {
-        return [
-            self::SCOPE_ALL => Yii::t('codexten:module:core', 'All'),
-            self::SCOPE_SHIPPING => Yii::t('codexten:module:core', 'Shipping'),
-            self::SCOPE_TAX => Yii::t('codexten:module:core', 'Tax'),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-        $behaviors['saveRelations'] = [
-            'class' => SaveRelationsBehavior::class,
-            'relations' => [
-                'zoneMembers',
-            ],
-        ];
-
-        return $behaviors;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -103,8 +80,8 @@ abstract class BaseZone extends ActiveRecord
     {
         return [
             [['code', 'type'], 'string', 'max' => 50],
-            [['name', 'scope'], 'string', 'max' => 255],
-            [['code', 'name', 'type', 'scope'], 'required'],
+            [['name'], 'string', 'max' => 255],
+            [['code', 'name', 'type',], 'required'],
             [['code'], 'unique'],
         ];
     }
@@ -119,8 +96,17 @@ abstract class BaseZone extends ActiveRecord
             'code' => Yii::t('codexten:module:core', 'Code'),
             'name' => Yii::t('codexten:module:core', 'Name'),
             'type' => Yii::t('codexten:module:core', 'Type'),
-            'scope' => Yii::t('codexten:module:core', 'Scope'),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function beforeSave($insert)
+    {
+        $this->type = static::TYPE;
+
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -167,50 +153,4 @@ abstract class BaseZone extends ActiveRecord
         return parent::canView();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getMeta()
-    {
-        $meta = parent::getMeta();
-
-        //if ($this->canView()) {
-        //    $meta['viewUrl'] = Url::to(['@partner/view', 'id' => $this->id]);
-        //}
-        //if ($this->canUpdate()) {
-        //    $meta['updateUrl'] = Url::to(['@partner/update', 'id' => $this->id]);
-        //}
-
-        return $meta;
-    }
-
-    ///**
-    //* statuses
-    //* @return array
-    //*/
-    //public static function statuses()
-    //{
-    //    return [
-    //        self::STATUS_ACTIVE => Yii::t('app', 'Active'),
-    //        self::STATUS_INACTIVE => Yii::t('app', 'Inactive'),
-    //    ];
-    //}
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fields()
-    {
-        $fields = parent::fields();
-
-        return $fields;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extraFields()
-    {
-        return [];
-    }
 }

@@ -9,6 +9,7 @@ use yii\db\ActiveQuery;
 /**
  * Class Zone
  *
+ * @property State $state
  * @property ZoneGroup $zoneGroup
  *
  * @package codexten\yii\modules\geo\models
@@ -18,8 +19,7 @@ class District extends BaseZone
     use SaveRelationsTrait;
 
     const TYPE_DISTRICT = 'district';
-
-    public $type = self::TYPE_DISTRICT;
+    const TYPE = self::TYPE_DISTRICT;
 
     /**
      * {@inheritdoc}
@@ -40,6 +40,21 @@ class District extends BaseZone
     /**
      * {@inheritDoc}
      */
+//    public function load($data, $formName = null)
+//    {
+//        $data['ZoneGroup']['zone_code'] = $data['District']['code'];
+//
+//        $loaded = parent::load($data, $formName);
+//        if ($loaded && $this->hasMethod('loadRelations')) {
+//            $this->loadRelations($data);
+//        }
+//
+//        return $loaded;
+//    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function transactions()
     {
         return [
@@ -52,6 +67,14 @@ class District extends BaseZone
      */
     public function getZoneGroup()
     {
-        return $this->hasOne(ZoneGroup::class, ['zone_code' => 'code']);
+        return $this->hasOne(ZoneGroup::class, ['zone_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getState()
+    {
+        return $this->hasOne(State::class, ['code' => 'group_code'])->via('zoneGroup');
     }
 }
