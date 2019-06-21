@@ -82,7 +82,6 @@ abstract class BaseZone extends ActiveRecord
             [['code', 'type'], 'string', 'max' => 50],
             [['name'], 'string', 'max' => 255],
             [['code', 'name', 'type',], 'required'],
-            [['code'], 'unique'],
         ];
     }
 
