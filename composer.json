@@ -17,6 +17,9 @@
       "dev-master": "2.0.x-dev"
     },
     "config-plugin": {
+      "moduleGeoApi": [
+        "$moduleCountryApi"
+      ],
       "moduleGeo": [
         "$moduleCountry",
         "config/moduleGeo.php"
