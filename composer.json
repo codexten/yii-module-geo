@@ -17,8 +17,10 @@
       "dev-master": "2.0.x-dev"
     },
     "config-plugin": {
+      "core": "config/core.php",
       "moduleGeoApi": [
-        "$moduleCountryApi"
+        "$moduleCountryApi",
+        "config/moduleGeoApi.php"
       ],
       "moduleGeo": [
         "$moduleCountry",
