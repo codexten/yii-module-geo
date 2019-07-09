@@ -4,32 +4,28 @@ namespace codexten\yii\modules\geo\models\search;
 
 use codexten\yii\db\SearchModelInterface;
 use codexten\yii\db\SearchModelTrait;
-use codexten\yii\modules\geo\models\Province;
+use codexten\yii\modules\geo\models\District;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-class ProvinceSearch extends Model implements SearchModelInterface
+/**
+ * Class Province
+ *
+ * @package codexten\yii\modules\geo\models\search
+ */
+class DistrictSearch extends Model implements SearchModelInterface
 {
     use SearchModelTrait;
 
     public $baseQuery;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function rules()
-    {
-        return [
-
-        ];
-    }
 
     /**
      * {@inheritDoc}
      */
     public function search(array $params)
     {
-        $query = $this->baseQuery ?: Province::find();
+        $query = $this->baseQuery ?: District::find();
 
         $q = \Yii::$app->request->get('q');
         if (!empty($q)) {

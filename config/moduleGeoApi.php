@@ -1,21 +1,42 @@
 <?php
 
-use yii\rest\ActiveController;
+use codexten\yii\modules\geo\models\District;
+use codexten\yii\modules\geo\models\search\DistrictSearch;
+use codexten\yii\modules\geo\models\search\StateSearch;
+use codexten\yii\modules\geo\models\State;
+use codexten\yii\rest\ActiveController;
+use yii\base\Module;
 
 return [
     'modules' => [
         'api' => [
             'modules' => [
                 'geo' => [
-                    'class' => \yii\base\Module::class,
+                    'class' => Module::class,
                     'controllerMap' => [
                         'state' => [
                             'class' => ActiveController::class,
-                            'modelClass' => \codexten\yii\modules\geo\models\State::class,
+                            'modelClass' => State::class,
+                            'newSearchModel' => function () {
+                                $className = 'codexten\yii\modules\geo\models\search\StateSearch';
+                                $searchModel = new $className();
+
+                                /* @var $searchModel StateSearch */
+
+                                return $searchModel;
+                            },
                         ],
                         'district' => [
                             'class' => ActiveController::class,
-                            'modelClass' => \codexten\yii\modules\geo\models\District::class,
+                            'modelClass' => District::class,
+                            'newSearchModel' => function () {
+                                $className = 'codexten\yii\modules\geo\models\search\DistrictSearch';
+                                $searchModel = new $className();
+
+                                /* @var $searchModel DistrictSearch */
+
+                                return $searchModel;
+                            },
                         ],
                     ],
                 ],
