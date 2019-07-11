@@ -23,16 +23,6 @@ class District extends BaseZone
     const TYPE = self::TYPE_DISTRICT;
 
     /**
-     * @return array
-     */
-    public function rules()
-    {
-        $rules = parent::rules();
-
-        return $rules;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function behaviors()
