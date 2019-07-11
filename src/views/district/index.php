@@ -6,7 +6,7 @@ use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $searchModel DistrictSearch*/
+/* @var $searchModel DistrictSearch */
 
 $this->title = Yii::t('codexten:module:core', 'Districts');
 ?>

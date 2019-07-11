@@ -21,7 +21,7 @@ class DistrictSearch extends Model implements SearchModelInterface
     public $baseQuery;
     public $code;
     public $name;
-    public $state;
+    public $state_name;
 
     /**
      * @return array
@@ -33,7 +33,7 @@ class DistrictSearch extends Model implements SearchModelInterface
                 [
                     'code',
                     'name',
-                    'state',
+                    'state_name',
                 ],
                 'safe',
             ],
@@ -65,9 +65,9 @@ class DistrictSearch extends Model implements SearchModelInterface
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like',Zone::tableName() . '.code', $this->code]);
+        $query->andFilterWhere(['like', Zone::tableName() . '.code', $this->code]);
         $query->andFilterWhere(['like', Zone::tableName() . '.name', $this->name]);
-        $query->andFilterWhere(['like', 'state.name', $this->state]);
+        $query->andFilterWhere(['like', 'state.name', $this->state_name]);
 
         return $dataProvider;
     }

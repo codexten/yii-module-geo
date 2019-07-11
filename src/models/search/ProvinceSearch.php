@@ -13,7 +13,7 @@ class ProvinceSearch extends Model implements SearchModelInterface
     use SearchModelTrait;
 
     public $baseQuery;
-    public $country;
+    public $country_id;
     public $code;
     public $name;
     public $abbreviation;
@@ -23,7 +23,7 @@ class ProvinceSearch extends Model implements SearchModelInterface
         return [
             [
                 [
-                    'country',
+                    'country_id',
                     'code',
                     'name',
                     'abbreviation',
@@ -42,10 +42,10 @@ class ProvinceSearch extends Model implements SearchModelInterface
     {
         $query = $this->baseQuery ?: Province::find();
 
- /*       $q = \Yii::$app->request->get('q');
-        if (!empty($q)) {
-            $query->andWhere(['like', 'name', $q]);
-        }*/
+        /*       $q = \Yii::$app->request->get('q');
+               if (!empty($q)) {
+                   $query->andWhere(['like', 'name', $q]);
+               }*/
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,10 +59,11 @@ class ProvinceSearch extends Model implements SearchModelInterface
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', Province::tableName().'.code', $this->code]);
+        $query->andFilterWhere(['like', Province::tableName() . '.code', $this->code]);
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere(['like', 'abbreviation', $this->abbreviation]);
-        //$query->andFilterWhere(['like', 'country.name', $this->country]);
+
+        $query->andFilterWhere(['like', 'country.id', $this->country_id]);
 
         return $dataProvider;
     }
