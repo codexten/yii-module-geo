@@ -1,11 +1,12 @@
 <?php
 
+use codexten\yii\modules\geo\models\search\DistrictSearch;
 use codexten\yii\web\widgets\IndexPage;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $searchModel */
+/* @var $searchModel DistrictSearch*/
 
 $this->title = Yii::t('codexten:module:core', 'Districts');
 ?>
@@ -28,7 +29,10 @@ $this->title = Yii::t('codexten:module:core', 'Districts');
     'columns' => [
         'code',
         'name',
-        'state.name',
+        [
+            'attribute' => 'state_name',
+            'value' => 'state.name',
+        ],
         [
             'class' => 'yii\grid\ActionColumn',
             'options' => ['style' => 'width: 5%'],
