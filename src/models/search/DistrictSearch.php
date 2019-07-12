@@ -53,14 +53,12 @@ class DistrictSearch extends Model implements SearchModelInterface
 
         $q = \Yii::$app->request->get('q');
         if (!empty($q)) {
-            $query->andWhere(['like', 'name', $q]);
+            $query->andWhere(['like', District::tableName() . '.name', $q]);
         }
 
         $query->joinWith([
             'state as state',
         ]);
-
-
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
