@@ -51,10 +51,10 @@ class DistrictSearch extends Model implements SearchModelInterface
             'sort' => $this->sort,
         ]);
 
-        /*       $q = \Yii::$app->request->get('q');
-               if (!empty($q)) {
-                   $query->andWhere(['like', 'name', $q]);
-               }*/
+        $q = \Yii::$app->request->get('q');
+        if (!empty($q)) {
+            $query->andWhere(['like', 'name', $q]);
+        }
 
         $query->joinWith([
             'state as state',

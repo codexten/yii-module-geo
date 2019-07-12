@@ -42,10 +42,10 @@ class ProvinceSearch extends Model implements SearchModelInterface
     {
         $query = $this->baseQuery ?: Province::find();
 
-        /*       $q = \Yii::$app->request->get('q');
-               if (!empty($q)) {
-                   $query->andWhere(['like', 'name', $q]);
-               }*/
+        $q = \Yii::$app->request->get('q');
+        if (!empty($q)) {
+            $query->andWhere(['like', 'name', $q]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
