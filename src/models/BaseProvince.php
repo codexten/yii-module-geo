@@ -44,7 +44,7 @@ abstract class BaseProvince extends ActiveRecord
     public function rules()
     {
         return [
-            [['country_id','code','name'], 'required'],
+            [['country_id', 'code', 'name'], 'required'],
             [['country_id'], 'integer'],
             [['code'], 'string', 'max' => 50],
             [['name', 'abbreviation'], 'string', 'max' => 255],
@@ -54,7 +54,7 @@ abstract class BaseProvince extends ActiveRecord
                 'skipOnError' => true,
                 'targetClass' => Country::class,
                 'targetAttribute' => ['country_id' => 'id'],
-            ]
+            ],
         ];
     }
 
