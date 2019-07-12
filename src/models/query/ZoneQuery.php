@@ -17,7 +17,7 @@ class ZoneQuery extends ActiveQuery
     public function prepare($builder)
     {
         if ($this->type !== null) {
-            $this->andWhere(['type' => $this->type]);
+            $this->andWhere([Zone::tableName() . '.type' => $this->type]);
         }
 
         return parent::prepare($builder);

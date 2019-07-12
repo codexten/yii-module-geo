@@ -1,13 +1,14 @@
 <?php
 
 use codexten\yii\modules\country\helpers\CountryHelper;
+use codexten\yii\modules\geo\models\search\StateSearch;
 use codexten\yii\web\widgets\IndexPage;
 use kartik\grid\EnumColumn;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $searchModel */
+/* @var $searchModel StateSearch*/
 
 $this->title = Yii::t('app', 'States');
 ?>
