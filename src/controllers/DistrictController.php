@@ -1,8 +1,6 @@
 <?php
 
-
 namespace codexten\yii\modules\geo\controllers;
-
 
 use codexten\yii\modules\geo\models\District;
 use codexten\yii\modules\geo\models\Province;
@@ -12,6 +10,9 @@ class DistrictController extends BaseZoneController
 {
     public $modelClass = District::class;
 
+    /**
+     * @return array
+     */
     public function actionDistrict()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -20,24 +21,28 @@ class DistrictController extends BaseZoneController
             $parents = $_POST['depdrop_parents'];
 
             if ($parents != null) {
-                $cat_id = $parents[0];
-                $out = self::getDistrictList($cat_id);
+                $id = $parents[0];
+                $out = self::getDistrictList($id);
                 return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];
     }
 
-    public function getDistrictList($cat_id)
+    /**
+     * @param $id
+     * @return array|District[]|\codexten\yii\modules\geo\models\Zone[]
+     */
+    public function getDistrictList($id)
     {
-        $stateCode = Province::find()->select('code')->andWhere(['id' => $cat_id])->one();
+        $stateCode = Province::find()->select('code')->andWhere(['id' => $id])->one();
 
-        $subCategory = District::find()
+        $districtList = District::find()
             ->select([District::tableName().'.id', 'name'])
             ->joinWith(['zoneGroup as zoneGroup'])
             ->andWhere(['group_code' => $stateCode['code']])
             ->asArray()->all();
-        return $subCategory;
+        return $districtList;
     }
 
 }
