@@ -50,6 +50,7 @@ class ProvinceSearch extends Model implements SearchModelInterface
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => $this->sort,
+            'pagination' => false,
         ]);
         $query->joinWith([
             'country as country',
